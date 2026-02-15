@@ -1,8 +1,9 @@
 import * as styles from "./Editor.css";
+import * as layout from "../App.css.ts";
 
 export function Editor() {
   return (
-    <section>
+    <section className={layout.sidePanel}>
       <h1 className={styles.panelHeader}>Left Component</h1>
       <p className={styles.subText}>
         This column highlights controls and reference notes for the editor

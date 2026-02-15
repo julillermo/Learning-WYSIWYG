@@ -1,17 +1,5 @@
 import { style } from "@vanilla-extract/css";
 
-export const mainPanel = style({
-  borderRadius: "16px",
-  padding: "1.5rem",
-  background: "#020617",
-  border: "1px solid rgba(148, 163, 184, 0.3)",
-  display: "flex",
-  flexDirection: "column",
-  gap: "1.25rem",
-  flex: 1,
-  minWidth: 0,
-});
-
 export const panelHeader = style({
   margin: 0,
   fontSize: "1.45rem",

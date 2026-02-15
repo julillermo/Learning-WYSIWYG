@@ -28,3 +28,27 @@ export const shell = style({
   boxShadow: "0 20px 60px rgba(2, 6, 23, 0.65)",
   border: "none",
 });
+
+export const sidePanel = style({
+  borderRadius: "16px",
+  padding: "1.25rem",
+  background: "linear-gradient(180deg, #1e293b, #111827)",
+  border: "1px solid rgba(226, 232, 240, 0.1)",
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+  flex: 1,
+  minWidth: 0,
+});
+
+export const mainPanel = style({
+  borderRadius: "16px",
+  padding: "1.5rem",
+  background: "#020617",
+  border: "1px solid rgba(148, 163, 184, 0.3)",
+  display: "flex",
+  flexDirection: "column",
+  gap: "1.25rem",
+  flex: 1,
+  minWidth: 0,
+});
