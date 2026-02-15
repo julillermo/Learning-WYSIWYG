@@ -1,38 +1,50 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import * as styles from './App.css.ts'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className={styles.logo} alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img
-            src={reactLogo}
-            className={`${styles.logo} ${styles.logoReact} ${styles.rotatingLogo}`}
-            alt="React logo"
-          />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className={styles.card}>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <main className={styles.shell}>
+      <aside className={styles.sidePanel}>
+        <h1 className={styles.panelHeader}>Left Component</h1>
+        <p className={styles.subText}>
+          This column highlights controls and reference notes for the editor experiment.
+          Keep ideas or quick checklists here as you iterate on the toolkit.
         </p>
-      </div>
-      <p className={styles.readTheDocs}>
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+        <ul className={styles.stackList}>
+          <li className={styles.stackItem}>
+            <span className={styles.stackBadge}>Idea</span>
+            Wireframe the new toolbar layout
+          </li>
+          <li className={styles.stackItem}>
+            <span className={styles.stackBadge}>Note</span>
+            Track keystroke shortcuts and interactions
+          </li>
+          <li className={styles.stackItem}>
+            <span className={styles.stackBadge}>Todo</span>
+            Capture visual styles for both panes
+          </li>
+        </ul>
+      </aside>
+      <section className={styles.mainPanel}>
+        <h2 className={styles.panelHeader}>Right Component</h2>
+        <p className={styles.subText}>
+          This space is for the living canvas or editor itself. Use it to prototype a
+          rich surface, preview layouts, or test interactions.
+        </p>
+        <div className={styles.card}>
+          <p>Count how many drafts you create while iterating.</p>
+          <button
+            type="button"
+            className={styles.button}
+            onClick={() => setCount((value) => value + 1)}
+          >
+            Draft count: {count}
+          </button>
+        </div>
+      </section>
+    </main>
   )
 }
 
