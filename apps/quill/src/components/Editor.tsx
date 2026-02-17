@@ -1,5 +1,5 @@
-import * as styles from "./Editor.css";
 import * as layout from "../App.css.ts";
+import * as styles from "./Editor.css.ts";
 
 export function Editor() {
   return (

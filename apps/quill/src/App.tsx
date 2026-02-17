@@ -1,12 +1,15 @@
-import * as styles from "./App.css.ts";
-import { Editor } from "./components/Editor.tsx";
-import { Renderer } from "./components/Renderer.tsx";
+import QuillApp from "./components/quill-reference/QuillApp.tsx";
+// import { Editor } from "./components/Editor.tsx";
+// import { Renderer } from "./components/Renderer.tsx";
 
 function App() {
   return (
-    <main className={styles.shell}>
-      <Editor />
-      <Renderer />
+    <main>
+      {/* <Editor />
+      <Renderer /> */}
+      <div>
+        <QuillApp />
+      </div>
     </main>
   );
 }
