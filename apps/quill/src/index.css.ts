@@ -11,6 +11,12 @@ globalStyle(":root", {
   textRendering: "optimizeLegibility",
   WebkitFontSmoothing: "antialiased",
   MozOsxFontSmoothing: "grayscale",
+  "@media": {
+    "(prefers-color-scheme: light)": {
+      color: "#213547",
+      backgroundColor: "#ffffff",
+    },
+  },
 });
 
 globalStyle("a", {
@@ -21,6 +27,11 @@ globalStyle("a", {
 
 globalStyle("a:hover", {
   color: "#535bf2",
+  "@media": {
+    "(prefers-color-scheme: light)": {
+      color: "#747bff",
+    },
+  },
 });
 
 globalStyle("body", {
@@ -47,6 +58,11 @@ globalStyle("button", {
   color: "#fff",
   cursor: "pointer",
   transition: "border-color 0.25s",
+  "@media": {
+    "(prefers-color-scheme: light)": {
+      backgroundColor: "#f9f9f9",
+    },
+  },
 });
 
 globalStyle("button:hover", {
@@ -55,17 +71,4 @@ globalStyle("button:hover", {
 
 globalStyle("button:focus, button:focus-visible", {
   outline: "4px auto -webkit-focus-ring-color",
-});
-
-globalStyle("@media (prefers-color-scheme: light) :root", {
-  color: "#213547",
-  backgroundColor: "#ffffff",
-});
-
-globalStyle("@media (prefers-color-scheme: light) a:hover", {
-  color: "#747bff",
-});
-
-globalStyle("@media (prefers-color-scheme: light) button", {
-  backgroundColor: "#f9f9f9",
 });
