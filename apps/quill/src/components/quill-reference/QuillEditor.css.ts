@@ -9,12 +9,12 @@ export const quillEditor = style({
   height: "100%",
 });
 
-globalStyle(".ql-toolbar", {
+globalStyle("quillEditor .ql-toolbar", {
   backgroundColor: "#ffffff",
   borderRadius: "8px 8px 0 0",
 });
 
-globalStyle(".ql-container", {
+globalStyle("quillEditor .ql-container", {
   backgroundColor: "#ffffff",
   borderRadius: "0 0 8px 8px",
   display: "flex",
@@ -24,7 +24,7 @@ globalStyle(".ql-container", {
   minHeight: 0,
 });
 
-globalStyle(".ql-container .ql-editor", {
+globalStyle("quillEditor .ql-container .ql-editor", {
   flex: 1,
   minHeight: 0,
 });

@@ -1,15 +1,30 @@
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 import Quill, { Delta } from "quill";
+import "quill/dist/quill.snow.css"; // Import the styles for the Quill snow theme
 import { forwardRef, useEffect, useRef } from "react";
+import * as styles from "./QEditor.css";
 
 type QEditorProps = {
   readOnly?: boolean;
   defaultValue?: Delta;
   placeholder?: string;
+  showToolbar?: boolean;
+  extraCSS?: {
+    qEditorBorderRadiusVar?: string;
+    qlToolbarBorderRadiusVar?: string;
+    qlEditorBorderRadiusVar?: string;
+  };
 };
 
 const QEditor = forwardRef(
   (
-    { readOnly, defaultValue, placeholder }: QEditorProps,
+    {
+      readOnly,
+      defaultValue,
+      placeholder,
+      showToolbar = true,
+      extraCSS,
+    }: QEditorProps,
     ref: React.ForwardedRef<Quill>,
   ) => {
     const typedRef = ref as React.RefObject<Quill | null>;
@@ -17,9 +32,11 @@ const QEditor = forwardRef(
 
     useEffect(
       function updateReadOnlyExternally() {
-        typedRef.current?.enable(!readOnly);
+        if (ref) {
+          typedRef.current?.enable(!readOnly);
+        }
       },
-      [readOnly, typedRef],
+      [readOnly, ref, typedRef],
     );
 
     useEffect(
@@ -27,9 +44,15 @@ const QEditor = forwardRef(
         const container = containerRef.current;
         if (container === null) return;
 
-        const quill = new Quill(container, {
+        // hook into the DOM
+        const editorContainer = container.appendChild(
+          container.ownerDocument.createElement("div"),
+        );
+
+        const quill = new Quill(editorContainer, {
           theme: "snow",
           placeholder: placeholder || "Start typing here...",
+          readOnly: readOnly,
           modules: {
             history: {
               delay: 1000,
@@ -37,7 +60,7 @@ const QEditor = forwardRef(
               userOnly: true,
             },
             syntax: false, // requires https://highlightjs.org/
-            toolbar: [
+            toolbar: showToolbar && [
               ["bold", "italic", "underline", "strike"],
               ["blockquote", "code-block"],
               ["link", "image", "video", "formula"],
@@ -59,21 +82,37 @@ const QEditor = forwardRef(
             ],
           },
         });
+        if (ref) typedRef.current = quill;
 
         if (defaultValue) {
           quill.setContents(defaultValue);
         }
 
         return () => {
-          typedRef.current = null;
-          (ref as { current: Quill | null }).current = null;
+          if (ref) {
+            typedRef.current = null;
+            (ref as { current: Quill | null }).current = null;
+          }
           container.innerHTML = "";
         };
       },
-      [defaultValue, placeholder, ref, typedRef],
+      [defaultValue, placeholder, readOnly, ref, showToolbar, typedRef],
     );
 
-    return <div ref={containerRef}></div>;
+    return (
+      <div
+        ref={containerRef}
+        className={styles.qEditor}
+        style={assignInlineVars({
+          [styles.qEditorBorderRadiusVar]:
+            extraCSS?.qEditorBorderRadiusVar ?? "8px",
+          [styles.qlToolbarBorderRadiusVar]:
+            extraCSS?.qlToolbarBorderRadiusVar ?? "8px 8px 0px 0px",
+          [styles.qlEditorBorderRadiusVar]:
+            extraCSS?.qlEditorBorderRadiusVar ?? "0px 0px 8px 8px",
+        })}
+      ></div>
+    );
   },
 );
 

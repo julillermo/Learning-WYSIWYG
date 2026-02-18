@@ -1,6 +1,6 @@
 {
   "name": "learning-wysiwyg",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,5 +9,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.18.2"
+  "packageManager": "pnpm@10.18.2",
+  "repository": "https://github.com/julillermo/Learning-WYSIWYG"
 }

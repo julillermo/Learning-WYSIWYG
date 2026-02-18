@@ -43,7 +43,8 @@ globalStyle("button", {
   fontSize: "1em",
   fontWeight: 500,
   fontFamily: "inherit",
-  backgroundColor: "#1a1a1a",
+  background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+  color: "#fff",
   cursor: "pointer",
   transition: "border-color 0.25s",
 });

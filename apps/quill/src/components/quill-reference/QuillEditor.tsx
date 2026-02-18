@@ -6,6 +6,7 @@ import * as styles from "./QuillEditor.css.ts";
 type QuillEditorProps = {
   readOnly?: boolean;
   defaultValue?: Delta;
+  placeholder?: string;
   onTextChange?: React.Dispatch<React.SetStateAction<Delta | undefined>>;
   onSelectionChange?: React.Dispatch<React.SetStateAction<Range | undefined>>;
 };
@@ -16,6 +17,7 @@ const QuillEditor = forwardRef(
     {
       readOnly,
       defaultValue,
+      placeholder,
       onTextChange,
       onSelectionChange,
     }: QuillEditorProps,
@@ -43,6 +45,9 @@ const QuillEditor = forwardRef(
 
         // Initialize Quill on the container
         const quill = new Quill(editorContainer, {
+          placeholder: placeholder || "Start typing here...",
+          theme: "snow",
+          readOnly: readOnly,
           modules: {
             history: {
               delay: 1000,
@@ -71,9 +76,8 @@ const QuillEditor = forwardRef(
               ["clean"], // remove formatting button
             ],
           },
-          placeholder: "Start typing here...",
-          theme: "snow",
         });
+        typedRef.current = quill;
 
         if (defaultValue) {
           quill.setContents(defaultValue);
