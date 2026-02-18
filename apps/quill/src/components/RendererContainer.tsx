@@ -9,7 +9,7 @@ export function RendererContainer() {
 
   return (
     <section className={layout.mainPanel}>
-      {delta != undefined && delta.ops.length > 0 && (
+      {delta != undefined && delta.ops.length > 0 ? (
         <>
           <QEditor
             readOnly={true}
@@ -27,6 +27,10 @@ export function RendererContainer() {
             </div>
           </div>
         </>
+      ) : (
+        <div className={styles.emptyRendererPanel}>
+          <p>[rendered output goes here]</p>
+        </div>
       )}
     </section>
   );

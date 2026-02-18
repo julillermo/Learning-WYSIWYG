@@ -14,3 +14,10 @@ export const rawDeltaOps = style({
   padding: "10px",
   borderRadius: "8px",
 });
+
+export const emptyRendererPanel = style({
+  display: "flex",
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+});
