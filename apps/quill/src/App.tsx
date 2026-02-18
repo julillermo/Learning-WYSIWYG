@@ -1,15 +1,21 @@
+import { EditorContainer } from "./components/EditorContainer.tsx";
+import { Renderer } from "./components/Renderer.tsx";
+
+import * as styles from "./App.css.ts";
 import QuillApp from "./components/quill-reference/QuillApp.tsx";
-// import { Editor } from "./components/Editor.tsx";
-// import { Renderer } from "./components/Renderer.tsx";
 
 function App() {
+  const showQuillReferenece = false; // change as needed
   return (
-    <main>
-      {/* <Editor />
-      <Renderer /> */}
-      <div>
+    <main className={styles.shell}>
+      {showQuillReferenece ? (
         <QuillApp />
-      </div>
+      ) : (
+        <>
+          <EditorContainer />
+          <Renderer />
+        </>
+      )}
     </main>
   );
 }

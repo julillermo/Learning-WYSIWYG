@@ -1,12 +1,13 @@
 import Quill, { Delta, Range } from "quill";
 import "quill/dist/quill.snow.css"; // Import the styles for the Quill snow theme
-import { forwardRef, useEffect, useLayoutEffect, useRef } from "react";
+import { forwardRef, useEffect, useRef } from "react";
+import * as styles from "./QuillEditor.css.ts";
 
 type QuillEditorProps = {
-  readOnly: boolean;
-  defaultValue: Delta;
-  onTextChange: React.Dispatch<React.SetStateAction<Delta | undefined>>;
-  onSelectionChange: React.Dispatch<React.SetStateAction<Range | undefined>>;
+  readOnly?: boolean;
+  defaultValue?: Delta;
+  onTextChange?: React.Dispatch<React.SetStateAction<Delta | undefined>>;
+  onSelectionChange?: React.Dispatch<React.SetStateAction<Range | undefined>>;
 };
 
 // Editor is an uncontrolled React component
@@ -20,27 +21,27 @@ const QuillEditor = forwardRef(
     }: QuillEditorProps,
     ref: React.ForwardedRef<Quill>,
   ) => {
-    const typedRef = ref as React.RefObject<Quill>;
+    const typedRef = ref as React.RefObject<Quill | null>;
     const containerRef = useRef<HTMLDivElement>(null);
-    const defaultValueRef = useRef(defaultValue);
-    const onTextChangeRef = useRef(onTextChange);
-    const onSelectionChangeRef = useRef(onSelectionChange);
 
-    useLayoutEffect(() => {
-      onTextChangeRef.current = onTextChange;
-      onSelectionChangeRef.current = onSelectionChange;
-    });
+    useEffect(
+      function updateReadOnlyFromOutsideControl() {
+        typedRef.current?.enable(!readOnly);
+      },
+      [ref, readOnly, typedRef],
+    );
 
-    useEffect(() => {
-      typedRef.current?.enable(!readOnly);
-    }, [ref, readOnly, typedRef]);
+    useEffect(
+      function initializeQuill() {
+        const container = containerRef.current;
+        if (container === null) return;
 
-    useEffect(() => {
-      const container = containerRef.current;
-      if (container !== null) {
+        // hook into the DOM
         const editorContainer = container.appendChild(
           container.ownerDocument.createElement("div"),
         );
+
+        // Initialize Quill on the container
         const quill = new Quill(editorContainer, {
           modules: {
             history: {
@@ -48,7 +49,7 @@ const QuillEditor = forwardRef(
               maxStack: 500,
               userOnly: true,
             },
-            syntax: false,
+            syntax: false, // requires https://highlightjs.org/
             toolbar: [
               ["bold", "italic", "underline", "strike"], // toggled buttons
               ["blockquote", "code-block"],
@@ -70,31 +71,37 @@ const QuillEditor = forwardRef(
               ["clean"], // remove formatting button
             ],
           },
-          placeholder: "Compose an epic...",
+          placeholder: "Start typing here...",
           theme: "snow",
         });
 
-        typedRef.current = quill;
-
-        if (defaultValueRef.current) {
-          quill.setContents(defaultValueRef.current);
+        if (defaultValue) {
+          quill.setContents(defaultValue);
         }
 
         quill.on(Quill.events.TEXT_CHANGE, (delta) => {
-          onTextChangeRef.current?.(delta);
+          if (onTextChange) {
+            onTextChange(delta);
+          }
         });
 
         quill.on(Quill.events.SELECTION_CHANGE, (args) => {
-          onSelectionChangeRef.current?.(args);
+          if (onSelectionChange) {
+            onSelectionChange(args);
+          }
         });
 
+        // cleanup useEffect
         return () => {
+          typedRef.current = null;
           (ref as { current: Quill | null }).current = null;
           container.innerHTML = "";
         };
-      }
-    }, [ref, typedRef]);
-    return <div ref={containerRef}></div>;
+      },
+      [defaultValue, onSelectionChange, onTextChange, ref, typedRef],
+    );
+
+    return <div ref={containerRef} className={styles.quillEditor}></div>;
   },
 );
 
