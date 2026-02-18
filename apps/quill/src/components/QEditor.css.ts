@@ -13,12 +13,12 @@ export const qEditor = style({
   height: "100%",
 });
 
-globalStyle("qEditor .ql-toolbar", {
+globalStyle(`${qEditor} .ql-toolbar`, {
   backgroundColor: "#ffffff",
   borderRadius: qlToolbarBorderRadiusVar,
 });
 
-globalStyle("qEditor .ql-container", {
+globalStyle(`${qEditor} .ql-container`, {
   backgroundColor: "#ffffff",
   borderRadius: qlEditorBorderRadiusVar,
   display: "flex",
@@ -28,7 +28,7 @@ globalStyle("qEditor .ql-container", {
   minHeight: 0,
 });
 
-globalStyle("qEditor .ql-container .ql-editor", {
+globalStyle(`${qEditor} .ql-container .ql-editor`, {
   flex: 1,
   minHeight: 0,
 });
