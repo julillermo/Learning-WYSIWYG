@@ -1,5 +1,6 @@
 import type Quill from "quill";
-import { useRef } from "react";
+import type { Delta } from "quill";
+import { useEffect, useRef, useState } from "react";
 import * as layout from "../App.css.ts";
 import { useQDelta } from "../hooks/useQDelta.ts";
 import { ExternalLinkIcon, SquareCodeIcon } from "../icons/index.tsx";
@@ -9,11 +10,29 @@ import QEditor from "./QEditor.tsx";
 
 export function EditorContainer() {
   const { delta, setDelta } = useQDelta();
+  const [liveDelta, setLiveDelta] = useState<Delta | null>(null);
   const quillEditorRef = useRef<Quill | null>(null);
+
+  const handleTextChange = (contents: Delta) => {
+    setLiveDelta(contents);
+  };
 
   const handlePublish = () => {
     setDelta(quillEditorRef.current?.getContents() ?? null);
   };
+
+  useEffect(() => {
+    /**
+     * Observe live delta state.
+     *
+     * The `quillEditorRef` is only really necessary when you want to use the
+     *  the quill methods like `get.Contents()` externally. Otherwise, you can
+     *  pass in a function that would siphon out the info handled from within.
+     *
+     * The contents can ge retrieved this way, without need for forwardRef.
+     */
+    console.log("live delta:", liveDelta);
+  }, [liveDelta]);
 
   return (
     <section className={layout.sidePanel}>
@@ -58,7 +77,11 @@ export function EditorContainer() {
         </div>
       </div>
 
-      <QEditor ref={quillEditorRef} defaultValue={delta || undefined} />
+      <QEditor
+        ref={quillEditorRef}
+        defaultValue={delta || undefined}
+        onTextChange={handleTextChange}
+      />
       <button className={stylesCommon.button.button} onClick={handlePublish}>
         Publish
       </button>

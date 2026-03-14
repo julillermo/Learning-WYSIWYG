@@ -32,3 +32,14 @@ globalStyle(`${qEditor} .ql-container .ql-editor`, {
   flex: 1,
   minHeight: 0,
 });
+
+/* Other class-names that may be of interest
+    .ql-toolbar
+    .ql-icon-picker
+    .ql-icon-picker
+    .ql-container
+    .ql-editor
+    .ql-video
+  I believe these can be determined via the browser inspecter.
+  You should also be able to style specific elements using n-th css logic
+*/

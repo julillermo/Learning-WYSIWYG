@@ -14,6 +14,7 @@ type QEditorProps = {
     qlToolbarBorderRadiusVar?: string;
     qlEditorBorderRadiusVar?: string;
   };
+  onTextChange?: (contets: Delta) => void;
 };
 
 const QEditor = forwardRef(
@@ -24,6 +25,7 @@ const QEditor = forwardRef(
       placeholder,
       showToolbar = true,
       extraCSS,
+      onTextChange,
     }: QEditorProps,
     ref: React.ForwardedRef<Quill>,
   ) => {
@@ -82,11 +84,20 @@ const QEditor = forwardRef(
             ],
           },
         });
-        if (ref) typedRef.current = quill;
 
+        // Handle editor events and methods
+        if (ref) typedRef.current = quill;
         if (defaultValue) {
           quill.setContents(defaultValue);
         }
+
+        // Handle quill-provided API event handlers
+        // handle quill-provided API event-handlers
+        quill.on("text-change", () => {
+          if (onTextChange) {
+            onTextChange(quill.getContents());
+          }
+        });
 
         return () => {
           if (ref) {
@@ -96,7 +107,15 @@ const QEditor = forwardRef(
           container.innerHTML = "";
         };
       },
-      [defaultValue, placeholder, readOnly, ref, showToolbar, typedRef],
+      [
+        defaultValue,
+        onTextChange,
+        placeholder,
+        readOnly,
+        ref,
+        showToolbar,
+        typedRef,
+      ],
     );
 
     return (
