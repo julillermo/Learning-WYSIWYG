@@ -5,7 +5,14 @@ Playground for trying out WYSIWYG Editors
 ## Included WYSIWYG Editors
 
 - [Quill](https://github.com/slab/quill)
-- Notectl (planned)
+
+## WYSIWYG Editors of interest (planned editors)
+
+- [notectl](https://github.com/Samyssmile/notectl)
+- [lexical](https://lexical.dev/)
+- [BlockNote](https://github.com/TypeCellOS/BlockNote)
+- [Jodit](https://github.com/xdan/jodit)
+- [editor.js](https://github.com/codex-team/editor.js)
 
 ## Quill.js
 
