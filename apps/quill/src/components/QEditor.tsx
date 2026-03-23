@@ -1,6 +1,5 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import Quill, { Delta } from "quill";
-import "quill/dist/quill.snow.css"; // Import the styles for the Quill snow theme
 import { forwardRef, useEffect, useRef } from "react";
 import * as styles from "./QEditor.css";
 

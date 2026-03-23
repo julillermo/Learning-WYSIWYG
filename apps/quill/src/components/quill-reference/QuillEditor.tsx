@@ -1,5 +1,4 @@
 import Quill, { Delta, Range } from "quill";
-import "quill/dist/quill.snow.css"; // Import the styles for the Quill snow theme
 import { forwardRef, useEffect, useRef } from "react";
 import * as styles from "./QuillEditor.css.ts";
 
