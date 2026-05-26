@@ -8,6 +8,7 @@ Playground for trying out WYSIWYG Editors
 
 ## WYSIWYG Editors of interest (planned editors)
 
+- [tiptap](https://tiptap.dev/)
 - [notectl](https://github.com/Samyssmile/notectl)
 - [lexical](https://lexical.dev/)
 - [BlockNote](https://github.com/TypeCellOS/BlockNote)
